@@ -34,10 +34,13 @@ namespace Pokemon_Essentials_PBS_Editor
             var trainer = TrainerList.SelectedItem as Trainer;
             if (trainer is null) return;
             PokemonList.ItemsSource = trainer.Pokemons;
+            PokemonListGrid.Visibility = Visibility.Visible;
+            PokemonInfoGrid.Visibility = Visibility.Hidden;
         }
 
         private void OnSelectPokemon(object sender, SelectionChangedEventArgs e)
         {
+            PokemonInfoGrid.Visibility = Visibility.Visible;
             var pokemon = PokemonList.SelectedItem as Pokemon;
             if (pokemon is null) return;
             PokemonAbility.Text = pokemon.Ability;

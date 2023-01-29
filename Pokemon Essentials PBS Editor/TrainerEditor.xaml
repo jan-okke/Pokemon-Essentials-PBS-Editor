@@ -27,14 +27,14 @@
                     <ListBox Name="TrainerList" Margin="5" SelectionChanged="OnSelectTrainer" ItemsSource="{Binding Trainers}"></ListBox>
                 </DockPanel>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Name="PokemonListGrid" Visibility="Hidden" Grid.Column="1">
                 <DockPanel Margin="5">
                     <TextBlock DockPanel.Dock="Top" Text="Pokemons" Margin="5"></TextBlock>
                     <Button DockPanel.Dock="Bottom" Content="Add Pokemon" Margin="5"></Button>
                     <ListBox SelectionChanged="OnSelectPokemon" Name="PokemonList" Margin="5"></ListBox>
                 </DockPanel>
             </Grid>
-            <Grid Grid.Column="2">
+            <Grid Name="PokemonInfoGrid" Visibility="Hidden" Grid.Column="2">
                 <DockPanel Margin="5">
                     <TextBlock DockPanel.Dock="Top" Text="Pokemon Info" Margin="5"></TextBlock>
                     <Grid>
