@@ -1,0 +1,175 @@
+﻿<Window x:Class="Pokemon_Essentials_PBS_Editor.TrainerEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pokemon_Essentials_PBS_Editor"
+        mc:Ignorable="d"
+        Title="Trainer Editor" Height="800" Width="1000"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Margin="5">
+            <Button Click="SaveChanges" Content="Save Changes" Margin="5"></Button>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0">
+                <DockPanel Margin="5">
+                    <TextBlock DockPanel.Dock="Top" Text="Available Trainers" Margin="5"></TextBlock>
+                    <Button DockPanel.Dock="Bottom" Content="Add Trainer" Margin="5"></Button>
+                    <ListBox Name="TrainerList" Margin="5" SelectionChanged="OnSelectTrainer" ItemsSource="{Binding Trainers}"></ListBox>
+                </DockPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <DockPanel Margin="5">
+                    <TextBlock DockPanel.Dock="Top" Text="Pokemons" Margin="5"></TextBlock>
+                    <Button DockPanel.Dock="Bottom" Content="Add Pokemon" Margin="5"></Button>
+                    <ListBox SelectionChanged="OnSelectPokemon" Name="PokemonList" Margin="5"></ListBox>
+                </DockPanel>
+            </Grid>
+            <Grid Grid.Column="2">
+                <DockPanel Margin="5">
+                    <TextBlock DockPanel.Dock="Top" Text="Pokemon Info" Margin="5"></TextBlock>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition> <!--Name-->
+                            <RowDefinition></RowDefinition> <!--Nickname-->
+                            <RowDefinition></RowDefinition> <!--Level-->
+                            <RowDefinition Height="2*"></RowDefinition> <!--Moves-->
+                            <RowDefinition></RowDefinition> <!--Ability-->
+                            <RowDefinition Height="3*"></RowDefinition> <!--IVs-->
+                            <RowDefinition></RowDefinition> <!--Shiny-->
+                            <RowDefinition></RowDefinition> <!--Shadow-->
+                            <RowDefinition></RowDefinition> <!--Item-->
+                            <RowDefinition></RowDefinition> <!--Ball-->
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Name" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonName" Grid.Column="1" Margin="5"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Nickname" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonNickname" Grid.Column="1" Margin="5"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Level" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonLevel" Grid.Column="1" Margin="5"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="3" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Moves" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove1" Grid.Row="0" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove2" Grid.Row="0" Grid.Column="2" Margin="5"></TextBox>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove3" Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove4" Grid.Row="1" Grid.Column="2" Margin="5"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="4" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Ability" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonAbility" Grid.Column="1" Margin="5"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="5" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="IVs" Grid.Column="0" Margin="5"></Label>
+                            <StackPanel Grid.Column="1" Margin="2">
+                                <Label Content="HP" FontSize="7"></Label>
+                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVHP"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Margin="2">
+                                <Label Content="ATK" FontSize="7"></Label>
+                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVATK"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="2">
+                                <Label Content="DEF" FontSize="7"></Label>
+                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVDEF"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="1" Margin="2">
+                                <Label Content="SPATK" FontSize="7"></Label>
+                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVSPATK"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="2" Margin="2">
+                                <Label Content="SPDEF" FontSize="7"></Label>
+                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVSPDEF"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="2" Margin="2">
+                                <Label Content="SPEED" FontSize="7"></Label>
+                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVSPEED"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="6" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Shiny" Grid.Column="0" Margin="5"></Label>
+                            <CheckBox Checked="SavePokemonChanges" Unchecked="SavePokemonChanges" Name="PokemonShiny" Grid.Column="1" Margin="5"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Row="7" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Shadow" Grid.Column="0" Margin="5"></Label>
+                            <CheckBox Checked="SavePokemonChanges" Unchecked="SavePokemonChanges" Name="PokemonShadow" Grid.Column="1" Margin="5"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Row="8" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Item" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonItem" Grid.Column="1" Margin="5"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="9" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Ball" Grid.Column="0" Margin="5"></Label>
+                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonBall" Grid.Column="1" Margin="5"></TextBox>
+                        </Grid>
+                    </Grid>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
