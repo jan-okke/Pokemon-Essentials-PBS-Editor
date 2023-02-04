@@ -27,7 +27,7 @@
                     <ListBox Name="TrainerList" Margin="5" SelectionChanged="OnSelectTrainer" ItemsSource="{Binding Trainers}"></ListBox>
                 </DockPanel>
             </Grid>
-            <Grid Name="PokemonListGrid" Visibility="Visible" Grid.Column="1">
+            <Grid Name="PokemonListGrid" Visibility="Hidden" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
