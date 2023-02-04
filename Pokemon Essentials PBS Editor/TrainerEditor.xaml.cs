@@ -21,6 +21,7 @@ namespace Pokemon_Essentials_PBS_Editor
     /// </summary>
     public partial class TrainerEditor : Window
     {
+        private bool _isProgramChange = false;
         public List<Trainer> Trainers { get; set; }
         public TrainerEditor()
         {
@@ -29,13 +30,29 @@ namespace Pokemon_Essentials_PBS_Editor
             InitializeComponent();
         }
 
+        private void UpdateTrainerList()
+        {
+            Trainer? t = TrainerList.SelectedItem as Trainer;
+            TrainerList.ItemsSource = null;
+            Trainers.Sort((x, y) => x.ToString().CompareTo(y.ToString()));
+            TrainerList.ItemsSource = Trainers;
+            if (t is null) return;
+            TrainerList.SelectedIndex = Trainers.IndexOf(t);
+        }
+
         private void OnSelectTrainer(object sender, SelectionChangedEventArgs e)
         {
             var trainer = TrainerList.SelectedItem as Trainer;
             if (trainer is null) return;
+            _isProgramChange = true;
             PokemonList.ItemsSource = trainer.Pokemons;
+            TrainerClass.Text = trainer.TrainerClass;
+            TrainerName.Text = trainer.TrainerName;
+            TrainerVersionNumber.Text = trainer.Version.ToString();
+            TrainerLoseText.Text = trainer.LoseText;
             PokemonListGrid.Visibility = Visibility.Visible;
             PokemonInfoGrid.Visibility = Visibility.Hidden;
+            _isProgramChange = false;
         }
 
         private void OnSelectPokemon(object sender, SelectionChangedEventArgs e)
@@ -43,6 +60,7 @@ namespace Pokemon_Essentials_PBS_Editor
             PokemonInfoGrid.Visibility = Visibility.Visible;
             var pokemon = PokemonList.SelectedItem as Pokemon;
             if (pokemon is null) return;
+            _isProgramChange = true;
             PokemonAbility.Text = pokemon.Ability;
             PokemonBall.Text = pokemon.Ball;
             PokemonItem.Text = pokemon.Item;
@@ -61,17 +79,20 @@ namespace Pokemon_Essentials_PBS_Editor
             PokemonNickname.Text = pokemon.Nickname;
             PokemonShadow.IsChecked = pokemon.Shadow;
             PokemonShiny.IsChecked = pokemon.Shiny;
+            _isProgramChange = false;
         }
 
         private void SaveChanges(object sender, RoutedEventArgs e)
         {
             SavePokemonChanges();
+            SaveTrainerChanges();
             this.Save();
         }
         private void SavePokemonChanges()
         {
             var pokemon = PokemonList.SelectedItem as Pokemon;
             if (pokemon is null) return;
+            _isProgramChange = true;
             pokemon.Ability = PokemonAbility.Text.Length > 0 ? PokemonAbility.Text : "";
             pokemon.Ball = PokemonBall.Text.Length > 0 ? PokemonBall.Text : "";
             pokemon.Item = PokemonItem.Text.Length > 0 ? PokemonItem.Text : "";
@@ -94,10 +115,24 @@ namespace Pokemon_Essentials_PBS_Editor
             pokemon.Nickname = PokemonNickname.Text.Length > 0 ? PokemonNickname.Text : "";
             pokemon.Shadow = PokemonShadow.IsChecked != null ? (bool)PokemonShadow.IsChecked : false;
             pokemon.Shiny = PokemonShiny.IsChecked != null ? (bool)PokemonShiny.IsChecked : false;
+            _isProgramChange = false;
+        }
+        private void SaveTrainerChanges()
+        {
+            var trainer = TrainerList.SelectedItem as Trainer;
+            if (trainer == null) return;
+            _isProgramChange = true;
+            trainer.TrainerClass = TrainerClass.Text;
+            trainer.TrainerName = TrainerName.Text;
+            trainer.Version = int.TryParse(TrainerVersionNumber.Text, out int version) ? version : 0;
+            trainer.LoseText = TrainerLoseText.Text;
+            UpdateTrainerList();
+            _isProgramChange = false;
         }
 
         private void SavePokemonChanges(object sender, TextChangedEventArgs e)
         {
+            if (_isProgramChange) return;
             SavePokemonChanges();
         }
 
@@ -114,6 +149,39 @@ namespace Pokemon_Essentials_PBS_Editor
         private void SavePokemonChanges(object sender, TextCompositionEventArgs e)
         {
             SavePokemonChanges();
+        }
+
+        private void SaveTrainerChanges(object sender, TextCompositionEventArgs e)
+        {
+            SaveTrainerChanges();
+        }
+
+        private void SavePokemonChanges(object sender, KeyEventArgs e)
+        {
+            SavePokemonChanges();
+        }
+
+        private void SaveTrainerChanges(object sender, TextChangedEventArgs e)
+        {
+            if (_isProgramChange) return;
+            SaveTrainerChanges();
+        }
+
+        private void AddTrainer(object sender, RoutedEventArgs e)
+        {
+            Trainers.Add(new Trainer());
+            UpdateTrainerList();
+        }
+
+        private void AddPokemon(object sender, RoutedEventArgs e)
+        {
+            Trainer? t = TrainerList.SelectedItem as Trainer;
+            if (t == null) return;
+            t.Pokemons.Add(new Pokemon());
+            int index = TrainerList.SelectedIndex;
+            PokemonList.ItemsSource = null;
+            PokemonList.ItemsSource = t.Pokemons;
+            PokemonList.SelectedIndex = index;
         }
     }
 }

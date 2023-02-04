@@ -49,7 +49,7 @@ namespace Pokemon_Essentials_PBS_Editor.Extension
                 }
                 else
                 {
-                    string attribute = line.Split(" = ")[0].Replace(" ", "");
+                    string attribute = line.Split(" = ")[0].Replace(" ", "").Replace("\t", "");
                     string value = line.Split(" = ")[1];
 
                     switch (attribute)

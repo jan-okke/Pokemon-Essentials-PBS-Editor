@@ -34,7 +34,7 @@ namespace Pokemon_Essentials_PBS_Editor.Extension
                     text += p.Shadow != false ? $"\tShadow = yes\n" : "";
                     text += p.Item != null && p.Item != ""  ? $"\tItem = {p.Item}\n" : "";
                     text += p.Ball != null && p.Ball != ""  ? $"\tBall = {p.Ball}\n" : "";
-                    text += p.Nickname != null && p.Nickname != ""  ? $"\tNickname = {p.Nickname}\n" : "";
+                    text += p.Nickname != null && p.Nickname != ""  ? $"\tName = {p.Nickname}\n" : "";
                 }
             }
             Console.WriteLine(text);

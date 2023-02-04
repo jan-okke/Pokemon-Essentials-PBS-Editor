@@ -23,14 +23,42 @@
             <Grid Grid.Column="0">
                 <DockPanel Margin="5">
                     <TextBlock DockPanel.Dock="Top" Text="Available Trainers" Margin="5"></TextBlock>
-                    <Button DockPanel.Dock="Bottom" Content="Add Trainer" Margin="5"></Button>
+                    <Button DockPanel.Dock="Bottom" Content="Add Trainer" Click="AddTrainer" Margin="5"></Button>
                     <ListBox Name="TrainerList" Margin="5" SelectionChanged="OnSelectTrainer" ItemsSource="{Binding Trainers}"></ListBox>
                 </DockPanel>
             </Grid>
-            <Grid Name="PokemonListGrid" Visibility="Hidden" Grid.Column="1">
-                <DockPanel Margin="5">
+            <Grid Name="PokemonListGrid" Visibility="Visible" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0" Margin="5">
+                    <TextBlock DockPanel.Dock="Top" Text="Trainer Info" Margin="5"></TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Trainer Class" Margin="5"></TextBlock>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="TrainerClass" Margin="5" TextChanged="SaveTrainerChanges"></TextBox>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Trainer Name" Margin="5"></TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="TrainerName" Margin="5" TextChanged="SaveTrainerChanges"></TextBox>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Version Number" Margin="5"></TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="TrainerVersionNumber" Margin="5" TextChanged="SaveTrainerChanges"></TextBox>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Lose Text" Margin="5"></TextBlock>
+                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="TrainerLoseText" Margin="5" TextChanged="SaveTrainerChanges"></TextBox>
+                    </Grid>
+                </DockPanel>
+                <DockPanel Grid.Row="1" Margin="5">
                     <TextBlock DockPanel.Dock="Top" Text="Pokemons" Margin="5"></TextBlock>
-                    <Button DockPanel.Dock="Bottom" Content="Add Pokemon" Margin="5"></Button>
+                    <Button DockPanel.Dock="Bottom" Content="Add Pokemon" Click="AddPokemon" Margin="5"></Button>
                     <ListBox SelectionChanged="OnSelectPokemon" Name="PokemonList" Margin="5"></ListBox>
                 </DockPanel>
             </Grid>
@@ -56,7 +84,7 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Content="Name" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonName" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonName" Grid.Column="1" Margin="5"></TextBox>
                         </Grid>
                         <Grid Grid.Row="1" Margin="5">
                             <Grid.ColumnDefinitions>
@@ -64,7 +92,7 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Content="Nickname" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonNickname" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonNickname" Grid.Column="1" Margin="5"></TextBox>
                         </Grid>
                         <Grid Grid.Row="2" Margin="5">
                             <Grid.ColumnDefinitions>
@@ -72,7 +100,7 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Content="Level" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonLevel" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonLevel" Grid.Column="1" Margin="5"></TextBox>
                         </Grid>
                         <Grid Grid.Row="3" Margin="5">
                             <Grid.ColumnDefinitions>
@@ -85,10 +113,10 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label Content="Moves" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove1" Grid.Row="0" Grid.Column="1" Margin="5"></TextBox>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove2" Grid.Row="0" Grid.Column="2" Margin="5"></TextBox>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove3" Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonMove4" Grid.Row="1" Grid.Column="2" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonMove1" Grid.Row="0" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonMove2" Grid.Row="0" Grid.Column="2" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonMove3" Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonMove4" Grid.Row="1" Grid.Column="2" Margin="5"></TextBox>
                         </Grid>
                         <Grid Grid.Row="4" Margin="5">
                             <Grid.ColumnDefinitions>
@@ -96,7 +124,7 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Content="Ability" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonAbility" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonAbility" Grid.Column="1" Margin="5"></TextBox>
                         </Grid>
                         <Grid Grid.Row="5" Margin="5">
                             <Grid.ColumnDefinitions>
@@ -112,27 +140,27 @@
                             <Label Content="IVs" Grid.Column="0" Margin="5"></Label>
                             <StackPanel Grid.Column="1" Margin="2">
                                 <Label Content="HP" FontSize="7"></Label>
-                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVHP"></TextBox>
+                                <TextBox TextChanged="SavePokemonChanges" Name="PokemonIVHP"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="2" Margin="2">
                                 <Label Content="ATK" FontSize="7"></Label>
-                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVATK"></TextBox>
+                                <TextBox TextChanged="SavePokemonChanges" Name="PokemonIVATK"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Grid.Row="1" Margin="2">
                                 <Label Content="DEF" FontSize="7"></Label>
-                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVDEF"></TextBox>
+                                <TextBox TextChanged="SavePokemonChanges" Name="PokemonIVDEF"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="2" Grid.Row="1" Margin="2">
                                 <Label Content="SPATK" FontSize="7"></Label>
-                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVSPATK"></TextBox>
+                                <TextBox TextChanged="SavePokemonChanges" Name="PokemonIVSPATK"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Grid.Row="2" Margin="2">
                                 <Label Content="SPDEF" FontSize="7"></Label>
-                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVSPDEF"></TextBox>
+                                <TextBox TextChanged="SavePokemonChanges" Name="PokemonIVSPDEF"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="2" Grid.Row="2" Margin="2">
                                 <Label Content="SPEED" FontSize="7"></Label>
-                                <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonIVSPEED"></TextBox>
+                                <TextBox TextChanged="SavePokemonChanges" Name="PokemonIVSPEED"></TextBox>
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="6" Margin="5">
@@ -157,7 +185,7 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Content="Item" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonItem" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonItem" Grid.Column="1" Margin="5"></TextBox>
                         </Grid>
                         <Grid Grid.Row="9" Margin="5">
                             <Grid.ColumnDefinitions>
@@ -165,7 +193,7 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Content="Ball" Grid.Column="0" Margin="5"></Label>
-                            <TextBox PreviewTextInput="SavePokemonChanges" Name="PokemonBall" Grid.Column="1" Margin="5"></TextBox>
+                            <TextBox TextChanged="SavePokemonChanges" Name="PokemonBall" Grid.Column="1" Margin="5"></TextBox>
                         </Grid>
                     </Grid>
                 </DockPanel>
