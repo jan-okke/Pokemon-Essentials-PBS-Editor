@@ -80,6 +80,9 @@ namespace Pokemon_Essentials_PBS_Editor.Extension
                                 pokemon.Moves.Add(new Move() { Name = name });
                             }
                             break;
+                        case "Ability":
+                            pokemon.Ability = value;
+                            break;
                         case "AbilityIndex":
                             pokemon.AbilityIndex = Convert.ToInt32(value);
                             break;
