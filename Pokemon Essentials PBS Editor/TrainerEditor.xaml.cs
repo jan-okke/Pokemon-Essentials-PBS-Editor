@@ -40,6 +40,18 @@ namespace Pokemon_Essentials_PBS_Editor
             TrainerList.SelectedIndex = Trainers.IndexOf(t);
         }
 
+        private void UpdatePokemonList()
+        {
+            Pokemon? p = PokemonList.SelectedItem as Pokemon;
+            if (p is null) return;
+            var trainer = TrainerList.SelectedItem as Trainer;
+            if (trainer is null) return;
+            var index = PokemonList.SelectedIndex;
+            PokemonList.ItemsSource = null;
+            PokemonList.ItemsSource = trainer.Pokemons;
+            PokemonList.SelectedIndex = index;
+        }
+
         private void OnSelectTrainer(object sender, SelectionChangedEventArgs e)
         {
             var trainer = TrainerList.SelectedItem as Trainer;
@@ -115,8 +127,10 @@ namespace Pokemon_Essentials_PBS_Editor
             pokemon.Nickname = PokemonNickname.Text.Length > 0 ? PokemonNickname.Text : "";
             pokemon.Shadow = PokemonShadow.IsChecked != null ? (bool)PokemonShadow.IsChecked : false;
             pokemon.Shiny = PokemonShiny.IsChecked != null ? (bool)PokemonShiny.IsChecked : false;
+            UpdatePokemonList();
             _isProgramChange = false;
         }
+
         private void SaveTrainerChanges()
         {
             var trainer = TrainerList.SelectedItem as Trainer;
